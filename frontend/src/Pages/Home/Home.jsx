@@ -53,7 +53,7 @@ const Home = () => {
               marginTop: "1rem",
             }}
           >
-            patlolla lasya reddi app
+            Lasya Reddi
           </Title>
 
           <Text
