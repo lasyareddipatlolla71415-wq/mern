@@ -9,8 +9,6 @@ const initialState = {
   token: "",
   isLoggedIn: false
 };
-
-// Slice definition
 export const userSlice = createSlice({
   name: "user",
   initialState,
