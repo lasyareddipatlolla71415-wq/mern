@@ -2,33 +2,22 @@ import { OAuth2Client } from 'google-auth-library';
 import {User as userModel} from '../models/user/user.model.js';
 import jwt from 'jsonwebtoken';
 
-const oAuthClient = new OAuth2Client(
-  process.env.GOOGLE_CLIENT_ID,
-  process.env.GOOGLE_CLIENT_SECRET,
-);
-
 export const loginWithGoogle = async (req, res) => {
 
     try {
 
         const { token } = req.body;
         if(!token) {
-            console.error("Google token not found for login in with google. Sending bad request");
             return res.status(400).json({ status: "BAD_REQUEST", message: "Google token not found" });
         }
 
         let ticket;
-        
         try {
-
-            console.log("Verifying the token of user with google.");
-
-            console.log("printing client", process.env.GOOGLE_CLIENT_ID)
+            const oAuthClient = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
             ticket = await oAuthClient.verifyIdToken({
                 idToken: token,
                 audience: process.env.GOOGLE_CLIENT_ID
             });
-
         } catch (error) {
             console.error("Error in validating google token", error.message);
             return res.status(500).json({ status: "INTERNAL_SERVER_ERROR", message: "Error in validating google token id"});

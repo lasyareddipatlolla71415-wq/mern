@@ -7,9 +7,6 @@ function joinURL(baseURL, url) {
 class Service {
   constructor() {
     this.domain = "";
-    if (import.meta.env.VITE_BZENV === "development") {
-      this.domain = import.meta.env.VITE_DEV_PROXY;
-    }
   }
 
   async request(url, method = "POST", data) {
@@ -53,12 +50,7 @@ class Service {
   }
 
 
-  getBaseURL = () => {
-    if (import.meta.env.VITE_BZENV === "development") {
-      return import.meta.env.VITE_DEV_PROXY || "http://localhost:3000"; // fallback proxy
-    }
-    return window.location.origin;
-  };
+  getBaseURL = () => window.location.origin;
 }
 
 export default Service
